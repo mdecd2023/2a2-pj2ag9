@@ -141,13 +141,62 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content"> <a href='Brython.html'>Next</a> >> Brython<br /><h1>About</h1>
-<p>四設計二甲</p>
-<p>成員:41023154張韋翔、41023135林政蔚、41023133林建三、41023140邱仲陞</p>
-<p>倉儲:<a href="https://github.com/mdecd2023/2a2-pj2ag9">https://github.com/mdecd2023/2a2-pj2ag9</a></p>
-<p>cdtemplate</p>
-<p><a href="https://mde.tw/pjcopsim">https://mde.tw/pjcopsim</a></p>
-<br /> <a href='Brython.html'>Next</a> >> Brython</div>
+    <div id="tipue_search_content">Brython_ex2 << <a href='Brython_ex2.html'>Previous</a> <a href='w10.html'>Next</a> >> w10<br /><h1>w9</h1>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/jqC0Z4nysjM" title="YouTube video player" width="560"></iframe></p>
+<p>組長 zmq:</p>
+<pre class="brush:html" contenteditable="false"># pip install pyzmq cbor keyboard
+from zmqRemoteApi import RemoteAPIClient
+import keyboard
+
+ 
+
+client = RemoteAPIClient('localhost', 23000)
+
+ 
+
+print('Program started')
+sim = client.getObject('sim')
+sim.startSimulation()
+print('Simulation started')
+
+ 
+
+def setBubbleRobVelocity(leftWheelVelocity, rightWheelVelocity):
+    leftMotor = sim.getObject('/leftMotor')
+    rightMotor = sim.getObject('/rightMotor')
+    sim.setJointTargetVelocity(leftMotor, leftWheelVelocity)
+    sim.setJointTargetVelocity(rightMotor, rightWheelVelocity)
+
+ 
+
+'''
+# Example usage 1:
+setBubbleRobVelocity(1.0, 1.0)
+time.sleep(2)
+setBubbleRobVelocity(0.0, 0.0)
+'''
+# use keyborad to move BubbleRob
+
+ 
+
+while True:
+    if keyboard.is_pressed('w'):
+        setBubbleRobVelocity(1.0, 1.0)
+    elif keyboard.is_pressed('s'):
+        setBubbleRobVelocity(-1.0, -1.0)
+    elif keyboard.is_pressed('a'):
+        setBubbleRobVelocity(-1.0, 1.0)
+    elif keyboard.is_pressed('d'):
+        setBubbleRobVelocity(1.0, -1.0)
+    elif keyboard.is_pressed('q'):
+        # stop simulation
+        sim.stopSimulation()
+    else:
+        setBubbleRobVelocity(0.0, 0.0)</pre>
+<p></p>
+<p>組員將localhost改成組長電腦的ipv4位址並將防火牆關閉、將leftMotor和rightMotor的數字改成與組長coppeliasim上相對應執行即可跨電腦操作bubbleRob，四個方向鍵可依造個人喜好調整。<br/><br/></p>
+<p></p>
+<br />Brython_ex2 << <a href='Brython_ex2.html'>Previous</a> <a href='w10.html'>Next</a> >> w10</div>
         
     <!-- footer -->
       <div class="container">
